@@ -1,0 +1,123 @@
+How do you find the second highest salary from a table?
+-------------------------------------------------------
+SELECT MAX(salary) 
+FROM employees 
+WHERE salary < (SELECT MAX(salary) FROM employees);
+
+
+SELECT salary FROM employees 
+ORDER BY salary DESC 
+LIMIT 1 OFFSET 1;
+
+What is a subquery?
+---------------------
+A subquery is a query inside another query.
+//Write a SQL query to display the names of all employees who work in departments located in ‘NY’ (New York).
+SELECT name FROM employees 
+WHERE dept_id IN (SELECT id FROM departments WHERE location = 'NY');
+
+How to fetch duplicate records in a table?
+------------------------------------------
+SELECT name, COUNT(*) 
+FROM employees 
+GROUP BY name 
+HAVING COUNT(*) > 1;
+
+Write an SQL query to get the latest record per group.
+---------------------------------------------------------
+SELECT *
+FROM orders o
+WHERE o.order_date = (
+    SELECT MAX(order_date)
+    FROM orders
+    WHERE customer_id = o.customer_id
+);
+
+// Get all employees and their department names.
+-------------------------------------------------
+SELECT e.employee_name, d.department_name
+FROM employees e
+INNER JOIN departments d ON e.department_id = d.id;
+
+// Get all employees, including those who are not assigned to any department.
+------------------------------------------------------------------------------
+SELECT e.employee_name, d.department_name
+FROM employees e
+LEFT JOIN departments d ON e.department_id = d.id;
+
+// Get all departments and the employees assigned to them.
+-----------------------------------------------------------
+SELECT e.employee_name, d.department_name
+FROM employees e
+RIGHT JOIN departments d ON e.department_id = d.id;
+
+// Get all employees and all departments, even if they don’t match.
+-----------------------------------------------------------------------
+-- For databases that support FULL OUTER JOIN:
+SELECT e.employee_name, d.department_name
+FROM employees e
+FULL OUTER JOIN departments d ON e.department_id = d.id;
+
+-- MySQL alternative using UNION:
+SELECT e.employee_name, d.department_name
+FROM employees e
+LEFT JOIN departments d ON e.department_id = d.id
+
+UNION
+
+SELECT e.employee_name, d.department_name
+FROM employees e
+RIGHT JOIN departments d ON e.department_id = d.id;
+
+//Find managers and their subordinates from an employee table.
+--------------------------------------------------------------
+SELECT e.employee_name AS employee, m.employee_name AS manager
+FROM employees e
+JOIN employees m ON e.manager_id = m.id;
+
+// Get departments and count of employees in each.
+-----------------------------------------------------
+SELECT d.department_name, COUNT(e.id) AS employee_count
+FROM departments d
+LEFT JOIN employees e ON e.department_id = d.id
+GROUP BY d.department_name;
+
+// Get employee names, their department, and the project they are working on.
+--------------------------------------------------------------------------------
+SELECT e.employee_name, d.department_name, p.project_name
+FROM employees e
+JOIN departments d ON e.department_id = d.id
+JOIN projects p ON e.project_id = p.id;
+
+// Get employees who are not assigned to any department.
+---------------------------------------------------------------
+SELECT e.employee_name
+FROM employees e
+LEFT JOIN departments d ON e.department_id = d.id
+WHERE d.id IS NULL;
+
+// Find departments that have more than 1 employee.
+-------------------------------------------------------
+SELECT d.department_name, count(e.id)
+FROM employees e
+JOIN departments d ON e.department_id = d.id  group by d.department_name having count(e.id) > 1;
+
+// List employee names along with their manager names.
+----------------------------------------------------------
+SELECT e.employee_name, m.employee_name
+FROM employees e
+JOIN employees m ON e.id = m.manager_id;
+
+// List all departments with the number of employees, sorted by highest number of employees.
+-----------------------------------------------------------------------------------------------
+select d.department_name, count(e.employee_name) FROM employees e
+JOIN departments d ON e.department_id = d.id  group by d.department_name  order by count(e.employee_name) desc;
+
+//find the employee whose salary is greater than or equal to manager salary
+-----------------------------------------------------------------------------
+Select e.* from Employee e JOIN Employee m ON e.manager_id = m.emp_id
+WHERE e.salary >= m.salary;
+
+
+
+

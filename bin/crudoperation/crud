@@ -1,0 +1,86 @@
+//postmapping create employee
+
+@Entity
+@Table(name = "employee")
+public class Employee {
+   @Id
+   @GeneratedValue(Strategy.GeneratedType.AUTO)
+   private Integer id;
+   private String salary;
+   private String address;
+
+   //getter and setter
+   
+   
+  
+}
+
+
+@Repository
+interface EmployeeRepo extends JpaRepository<Employee, Integer>{
+
+}
+
+interface EmployeeService {
+  public Employee saveEmplyee(Employee emp);
+  public Employee getEmployeeById(Integer id);
+  public Employee getAllDetails();
+  public String deleteEmployeeById(Integer id);
+  
+
+}
+
+@Service
+public EmployeeServiceImpl{
+
+   @Autowird
+   EmployeeRepo repo;
+   
+    public Employee saveEmplyee(Employee emp){
+      return repo.save(emp);
+    }
+    
+     public Employee getEmployeeById(Integer id){
+        return repo.findOne(id);
+     }
+     
+     public Employee getAllDetails(){
+        return repo.findAll();
+     }
+}
+
+@RestController
+@RequestMapping
+public class EmployeeController{
+
+   @Autowird
+   private EmployeeServiceImpl impl;
+
+   @PostMapping("/saveEmployee")
+   public ResponseEntity<?> createEmployee(@RequestBody Employee emp){
+       Employee e = impl.saveEmplyee(emp);
+       return ResponseEntity.ok(e);
+   }
+   
+   @GetMapping("/getById/{id}")
+   public ResponseEntity<?> getEmployeeById(@PathVariable Integer id){
+       Employee e = impl.getEmployeeById(id);
+       return ResponseEntity.ok(e);
+   }
+   
+   
+   @GetMapping("/findAll")
+   public ResponseEntity<?> getAllEmployeeDetails(){
+       Employee e = impl.getAllDetails();
+       return ResponseEntity.ok(e);
+   }
+   
+   //Delete Employee
+   
+   @DeleteEmployee("/deleteEmployee/{id}")
+   public ResponseEntity<?>  deleteEmployeeById(@PathVariable Integer id){
+                  impl.deleteEmployeeById(id);
+   }
+   
+
+}

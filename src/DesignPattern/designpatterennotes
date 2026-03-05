@@ -1,0 +1,60 @@
+Builder Design Pattern
+======================
+The Builder Design Pattern is a creational pattern used to construct complex objects step-by-step. 
+It provides better control over the construction process and is especially useful when an object 
+requires many optional fields or configurations.
+
+✅ Why use Builder Pattern?
+To create immutable objects with many optional parameters.
+Avoid telescoping constructors (too many constructors with different combinations of parameters).
+Improves code readability and maintainability.
+
+💡 Real-world Analogy
+Think of building a burger: you can choose the bun, patty, toppings, sauces, etc. A builder helps you 
+configure and build the burger exactly the way you want.
+
+Singleton Design Pattern in Java
+====================================
+The Singleton Pattern is a creational design pattern that ensures a class has only one instance 
+throughout the application and provides a global point of access to it.
+🔧 Use Cases
+Logger
+Configuration manager
+Database connection pool
+Cache
+🧠 Key Concepts
+Private constructor – Prevents other classes from instantiating it.
+Static instance – Holds the only instance.
+Public static method – Returns the instance.
+
+Factory Design Pattern
+=======================
+The Factory Design Pattern is a creational design pattern used in Java to create objects without 
+exposing the creation logic to the client. Instead of calling a constructor directly, you use a factory 
+method that returns an instance of a class.
+
+✅ Why use Factory Pattern?
+To handle object creation logic centrally.
+To return different subclasses based on input.
+Promotes loose coupling and code flexibility.
+
+🔄 Iterator Design Pattern in Java
+==================================
+The Iterator Design Pattern is a behavioral design pattern that provides a way to access elements of
+a collection sequentially without exposing its internal structure.
+✅ Why use Iterator Pattern?
+To traverse a collection without exposing how it's implemented.
+To provide a uniform interface for different types of collections.
+To support multiple iterations over a collection.
+🧠 Key Concepts:
+Iterator: Interface with methods like hasNext() and next().
+Concrete Iterator: Implements traversal logic.
+Aggregate (Collection): The data structure being traversed.
+
+
+Creational ==	Singleton, Factory, Abstract Factory, Builder, Prototype
+Structural ==	Adapter, Bridge, Composite, Decorator, Facade, Flyweight, Proxy
+Behavioral ==	Chain of Responsibility, Command, Iterator, Mediator, Observer, etc.
+
+
+
