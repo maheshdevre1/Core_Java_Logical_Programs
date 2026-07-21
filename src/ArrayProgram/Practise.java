@@ -26,23 +26,21 @@ import java.util.stream.Collectors;
 //revrese of array element
 //sort array in ascending and descending order
 //search array element find index value
+class Animal {
+}
+
+class Dog extends Animal {
+}
+
+class Cat extends Animal {
+}
 public class Practise {
 	public static void main(String[] args) {
-	    int arr[] = {4,6,1,2,3,0};
-	    
-	    for(int i=0; i<arr.length; i++) {
-	    	for(int j=i+1; j<arr.length; j++) {
-	    		if(arr[i]<arr[j]) {
-	    			int temp = arr[i];
-	    			arr[i] = arr[j];
-	    			arr[j] = temp;
-	    		}
-	    			
-	    	}
-	    	System.out.print(arr[i] + " ");
-	    }
-		
-		
-		
-	}
+
+        Animal arr[] = new Dog[2];
+
+        arr[0] = new Dog(); // Valid
+
+        arr[1] = new Dog(); // Runtime Exception
+    }
 }
