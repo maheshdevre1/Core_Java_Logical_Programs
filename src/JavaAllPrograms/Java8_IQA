@@ -1,0 +1,3 @@
+#What are Records in Java? Do Records have equals() and hashCode()?
+-------------------------------------------------------------------------
+Records are a special type of class introduced in Java 16, mainly used for immutable data-carrying objects. They reduce boilerplate because Java automatically provides a constructor, accessor methods, equals(), hashCode(), and toString(). Yes, Records have equals() and hashCode(), and their implementations are based on the record components. So two record objects with the same component values are considered equal and will have the same hash code. Records provide shallow immutability, so if a component contains a mutable object like a List, that object can still be modified.

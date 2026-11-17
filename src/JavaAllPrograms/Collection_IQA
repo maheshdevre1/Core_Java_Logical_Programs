@@ -1,0 +1,11 @@
+# How do you make a LinkedList synchronized?
+---------------------------------------------
+LinkedList is not thread-safe by default. We can make it synchronized by wrapping it using Collections.synchronizedList(), for example List<Integer> list = Collections.synchronizedList(new LinkedList<>());. Individual operations are synchronized, but while iterating, we should explicitly synchronize on the list. If the application requires high-concurrency access, I would consider an appropriate concurrent collection such as ConcurrentLinkedDeque instead.
+
+#How does HashMap work internally?
+* How is the key’s hash calculated?
+* What is the load factor?
+* How does resizing work?
+* How does it impact performance?
+---------------------------------
+HashMap stores key-value pairs using an internal bucket array. When we insert a key, HashMap first calls the key's hashCode() and applies a hash-spreading operation. It then calculates a bucket index using the hash and the table capacity. If multiple keys map to the same bucket, a collision occurs, which is handled using a linked structure and, when appropriate, a Red-Black Tree. During lookup, HashMap calculates the hash and bucket again and then uses hash comparison and equals() to find the correct key. The default load factor is 0.75, meaning resizing is triggered when the number of entries crosses roughly 75% of the capacity. The table typically doubles during resizing, and entries are redistributed. Resizing can temporarily impact performance, so choosing an appropriate initial capacity can reduce unnecessary resizes. Average get, put, and remove operations are O(1), assuming good hash distribution.

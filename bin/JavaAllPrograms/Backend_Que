@@ -1,0 +1,436 @@
+OOPS
+------
+27) What is ClassLoader
+28) Can we change the access modifier in an overridden method?
+29) What are the exception handling rules in method overriding?
+#object clonning/shallow capy and Deep Copy 
+#Why is Java Platform Independent ? 
+#diff JDK, JVM and JRE
+5)why we use covarrient method overriding
+22) How do you decide whether to use a default method or a static method in an interface? 
+#why we make method as final
+#Why can't we overload System.out.println()? 
+#can we create a object of static class 
+#can make contructor static 
+#Can an abstract class have a constructor?
+#Why can’t we create an object of an abstract 
+#Can an interface have a constructor class?
+#Can we overload the main() method 
+#What is dynamic binding / static binding or early binding/Method hiding 
+#Can we override static and private method
+#Can we create a object of final class
+#can we achive 100% abstraction in java
+2)4 pillers of oops 
+1)Class and Objects
+3)access modifier
+4)final,finally,finalize
+6)why java not pure oop lan
+7)can we declared constructor private
+8)Constructor and constructor chaining
+8)constructor method diff
+10)this super diff
+11)wrapper classes Autoboxing and Unboxing
+13)composition has a and inheritance isa diff
+14)Aggregation and Association diff
+15)Can we change the return type in method overriding? -Yes only for covariant return type
+16)Marker and Autocloseble interface 
+17) Diff between static block and instant initializer block
+18) Multiple static block
+19) Reflection in Java
+20) What happens if a class implements two interfaces that contain the same default method
+21) Why were private methods introduced in interfaces in Java 9?
+23) Variable Arguments (Varargs) in Java
+24) Can we write main() as public static void main(String... args)?
+25) If a class has a static method and we create an object reference with null, can we call the static method using that reference?
+26) Base class and abstract class diff
+
+
+Array 
+-----
+What is Time Complexity and how to find TC
+What is Array
+Array Store Exception and ArrayOutOfBoundExc diff
+Can we use generic - no
+Array is thread-safe
+can we make array volatile - yes
+Call by value and call by reference 
+
+String
+-------
+#What are Weak, Soft, and Phantom References? 
+#Explain Java memory areas: Heap, Stack, Method Area, and Program Counter.
+#Immutable object shared between multiple threads 
+Why String is mostly used as a key in HashMap class? 
+What is String/ ways we can create object in string
+diff String, StringBuffer, StringBuilder
+String methods
+== and equals() diff
+what is SCP-> why provided SCP
+Is string thred safe - yes
+intern(), substring()-  means
+how to create immutable class
+How many String Objects will be created for String
+s1 = new String("ankit");
+
+Exception
+-----------
+#Try block throwing exception and catch block is not there only finally block is there what will happen 
+# Can we handle error 
+1.Ways to handle exception, diff keyword
+2.Exception hirachy 
+3.checked and unchecked exception 
+4.what Errors and Exception diff? eample
+5.try with resource
+6.ClassNotFoundException and NoClassDefFoundError diff
+7.OutOfMemoryError,StackOverflowError,ClassCastException 
+8.root class for all types of errors and exceptions
+9.List the Methods in the Throwable class
+10.What is SQLException, NumberFormatException, ArrayIndexOutOfBoundsException 
+11.if an exception is thrown by the main method
+12.unreachable catch block error
+13.Can we try block without catch block
+14.If multiple catch block is there which catch block is execute
+15. Custom exception 
+
+Java8
+-------
+#Java 17 features - RSPST
+#Java 21 features - VPRSS
+#What are Records in Java? Do Records have equals() and hashCode()
+What is stream() and parallel stream()	
+5)PermGen and Metaspace 
+13)changes garbage collection after java8 
+6)Collection API and Stream API diff
+7)Iterator and Spliterator diff
+8)Internal iteration and External iteration diff
+#Can we use Lambda Expression for Regular Interface? 
+1)Java 8 features
+2)Predicate, Function, Consumer and Supplier
+3)Intermediate/ lazy evaluation  and terminal operation
+4)Changes in HashMap after Java8
+9)String::valueOf 
+10)skip(long) and limit(long)  diff
+11)findAny() and findFirst()  diff
+12)Filter and Map diff
+14)diff filter, map and flatmap
+
+Multithreading
+---------------
+#How does the Java Memory Model work? 
+#What problems can `ThreadLocal` cause in a thread pool? 
+#How does `CompletableFuture` work internally? 
+#What is ForkJoinPool and how does work-stealing work? 
+#How would you detect and troubleshoot a deadlock? 
+#What happens when you create too many threads in a Java application? 
+#What is false sharing and how can it affect performance? 
+#What happens internally when a Java thread calls `wait()`? 
+#How would you troubleshoot high thread contention in a Java application? 
+#Cache handling in multithreading / user thread demon thread 
+#Multiple threads are accessing and updating the same cache. How would you handle it?
+#What happens if multiple threads modify a HashMap
+#Two threads are updating the same employee/account record simultaneously.
+--------------------------------------------------------
+1.What is Mulththreading, ways to achieve
+7.ExecutorService and types
+2.Synchronization and types
+3.Inter thread communication
+4.thread life cycle
+6.join(), yield() diff
+9.thread pool and thread schedular
+10.sleep() and wait() diff
+11.run() and start() diff
+12.volatile
+13.Serialization and Deserialization
+Serial version UID
+14.Thread priority
+15.class lock and object lock diff
+16.Callable and runnable diff
+17.ThreadLocal variable
+18.Starvation 
+19.transient
+
+
+Collection
+-----------
+#3. How do you make a LinkedList synchronized?
+#If we insert a null key into a HashMap, how does it find the bucket since null.hashCode() cannot be called? / How to calculate index in hash
+#ConcurrentHashMap #HashTable  internal working
+#Which methods you need to override to use any object as a key in HashMap 
+#How do you use a custom object as a key in HashMap 
+#Comparable and Comparator interfaces
+#BlockingQueue
+1)Collection Hirachy / Red black tree
+2)List - ArraysList, LinkedList, Vector, Stack
+3)Set - HashSet, LinkedHashSet, TreeSet
+4)Queue - PriorityQueue and Deque(I)
+5)Map - HashMap, LinkedHashMap and TreeMap
+7)root interface in the collection hierarchy
+8)Collection and Collections diff
+9)collection classes are synchronized or thread-safe
+10)iterator and Enumeration diff
+12)difference between Queue and Stack
+15)CopyOnWriteArrayList
+16)Fail- fast iterator and Fail-safe iterator
+19)hash-collision in Hashtable
+20)hashCode() and equals()  contract
+21)What are concurrentCollectionClasses
+23)What will happen if we override hashCode method only not override equals method while using employee as a key in hashmap.
+24)ConcurrentModificationException
+25) What happens if we add null to a TreeSet?
+
+SQL
+——-
+#Explain the order of execution of SQL query clauses.
+#Diff between rank() , denserank(), row_number(). 
+#Query level diff between oracle, postgresql and mysql 
+What is CQRS
+Optimistic Locking and Pessimistic Locking 
+offset means
+How subquery will work  
+#Views and types / Indexing and types
+#Clustured and non clustured index 
+#Alternate key/Composite key/Super key
+-----
+1)Group by clause
+2)Having clause 
+3)Aggregate function 
+4)Joins
+What is savepoint
+5) Types of language 
+DML
+DDL
+DCL
+TCL
+5)Normalisation  
+6)Acid Properties
+7)Drop and Truncate and Delete 
+9)Difference types of keys
+Primary key
+Candidate key
+Foreign key
+Unique key
+9)Union and Union All
+11)Best way to write sql queries 
+
+PLSQL
+———
+Cursor
+Trigger 
+Procedure Function diff
+Types of predefined exception 
+Pragma init exception 
+
+Hibernate
+========
+#Spring boot annoataion => @Lob, @Async
+#Diff between Auto and Identity 
+#Persistent, merge, update difference 
+17) Benefits of JPA over hibernate 
+18) Hibernate stages / entity states 
+19) How to avoid status 500
+20) get and load method in hibernate diff
+21) One-to-Many and Many-to-Many relations 
+
+Git
+----
+#Git flow
+#What is Git Merge, Patch?
+#Diff between Git and SVN 
+32) Git command 
+
+
+Spring Boot
+-----------
+#IOC/Depenency injection/ bean life cycle/Component and bean diff 
+#What is Bean Creation Process in Spring?  #@PostConstruct use 
+#How Spring decides to create a Bean of @Component class? Circular Dependency / 
+#Scope of Spring bean/ bean types 
+#How did you solve the N+1 problem in your project? 
+#SessionFactory and EntityManager, how internally work
+#How to create Singleton Class ?
+#@EnableAsync  & @Async  use
+#What is the use of @SequenceGenerator in an Entity? 
+#What annotation is used when I don't want to delete Address and Contact when deleting Employee? 
+#What is encryption and decryption and it's types
+#Stateless authentication means 
+1)JWT contain/ Authentication/ Authorization /How to implement JWT and what dependency required
+2)Explain Spring Security, Bearer means // what is CSRF
+3)diff crud, jpa and pagination and sorting repository 
+4)Explain error code - BUFNMC -400
+IBSG 500
+5) SpringApplication.run() 
+#What is jdbc template 
+16) Cohesion coupling diff 
+25) Conditional Annotation in SB
+28) How to design multithreaded rest controller 
+29) how to Create own custom SB starter
+31) Versioning of Rest API 
+33) Ways to design singleton pattern
+34) Spring batch / How to implement
+#u have excel sheet with lakhs of data and u want to store in db what is your approach 
+#A query returns 1 lakh records. How will you improve performance?
+37) Spring AOP 
+39) Maven build life cycle and default scope
+40) What is plugin in maven/ settings.xml file
+42) What are the design pattern we used in spring boot application
+44)Filter and interceptor concept
+45)How to do cache implementation 
+46)What is multimodule/ three tier architecture
+14) What is idempotency, how to avoid it / findByIdempotencyKey(key)
+--------------------------------------------------
+#How to run the jar 
+#Profile Concept/ Multiple database 
+26) @Scheduled and @EnabledScheduled 
+41) Exception Handling in Spring Boot 
+6) Front Controller / Controller RestController diff/#View Resolver 
+8) pathvariable requestparam diff
+9) Actuator /Devtools
+9) how Configure JPA for SB, explain @Query
+10) Starter types 
+11) How to read values from properties file
+13) @Qualifier @Primary diff / @Transactional
+14) Module in Spring Framework 
+15) Explain save employee API
+17) Solid Principle 
+19) @SpringBootApplication
+20) Spring Initializer
+21) How disable any configuration 
+23) PutMapping and PatchMapping diff
+30) Role of DTO
+35) CORS policy
+#how cross origin work if backend and fronted working on local then why getting cross policy error. 
+36) Jpa query and native query diff
+38) Ways to create spring boot project
+
+Microservices 
+===========
+#What is Docker, Why we use docker and how to implement it?
+#How do you deploy multiple microservices using Docker?\
+#Jenkins/Kubernates and Pod
+#What is a Pod ?
+#Distributed transaction /Saga Design Pattern and its types 
+#What are Kafka Producer, Consumer, Topic, Partition, and Offset?
+#How do you connect a Spring Boot application with Kafka? 
+#How are Kafka messages removed after a fixed time? What is the configuration name? 
+#If producer is down what happen 
+#Kafka and RabbitMq / Kafka Version
+#What is Rate limiting / How to handle multiple heat from user / How to implement
+#How do you control the number of users who can access your microservice? Suppose there are billions of users, but you want only 10K users to be able to access the service. 
+#HttpClient and RestTemplate 
+#Fiegh client and rest template diff
+3) How deployment happen in Microservices 
+12) What is CI and CD pipeline 
+----------
+#Monolithic and Microservices diff
+1)Call 3 microservices and combine the result how will we do that
+2) Distributed tracing 
+4) Component of MA
+6) Synchronous and Asynchronous communication /How micro communicate with each other 
+7) Circuit breaker  and types
+8) Micoservices Disadvantages 
+10) 2PC and 3 PC
+15) Redis
+16) Spring Cloud
+17) Security in Microservices
+18) what Nginx
+
+
+Scenario based question 
+===================
+# What is forward proxy and reverse proxy 
+# If API is taking time o response what things you need to check 
+#Your POST API is taking too long because it saves a large list of records. How will you optimize it?" 
+#In production if API is down how to verify it 
+#Suppose you consume a Kafka message in XML, convert it, and publish it to a downstream Kafka topic, but while doing this, the data is persisted in the database and the message is not published to the Kafka topic due to some error. How do you roll back the database data? How do you handle this scenario in a microservice? 
+#Suppose you have 3 microservices: A, B, and C. A posts a message to a Kafka topic of B. How does Microservice B consume the message and post it to the REST API endpoint of Microservice C 
+#What LLD and HLD 
+#What is SFTP and SSH
+#How to deploy application on tomcat server 
+#How do you know whether a third-party API call is successful or failed? 
+#How to do code optimization
+#Common Causes of Memory Leaks and how to avoid
+#If big from is there while filling form the token is expired then from filled by user that is weast how to handle
+#how refresh token works
+#How to do code review 
+#If junior developer not agree with your solution code review how to handle this situation 
+#What challenges you have faced and how to resolve it ?
+#What is the complicated scenario you have worked on in your project 
+#Where you have used functional interfaces in your project 
+#Explain the architecture of your project
+# If there are two tables and data is inserted into the first table but fails to insert into the second table, how can we roll back the transaction so that no data is saved in either table? 
+#If a class is annotated with @Transactional and one method successfully inserts data but another method fails, how can the entire transaction be rolled back? 
+#Memory level diff between int and Integer 
+#How does pagination work in Spring Boot? How does Spring Boot and the database know that only 10 records should be fetched and displayed at a time? Explain the internal working and flow from the Controller to the Service and Repository levels. 
+--------------------------
+#How would you investigate high GC pauses in production ? 
+1. API latency suddenly increases after deployment. What do you check first?
+2. Database connection pool gets exhausted. What could be the reason?
+3. API works locally but becomes slow in production. How do you debug it?
+4. A Spring Boot service starts returning random 500 errors. Where do you begin?
+5. Memory usage keeps increasing until the application crashes. How do you find the root cause?
+6. One downstream service becomes slow and affects your entire API. How would you isolate the impact?
+7. Multiple users update the same record simultaneously. How do you prevent inconsistent data?
+8. Cache improves performance but starts serving stale data. How would you fix it?
+9. Your scheduled job executes multiple times after deploying multiple instances. Why?
+10. Application is healthy, but users are still getting timeouts. What would you investigate?
+11. API response is slow even though the database query is fast. Where else could the bottleneck be?
+12. Logs are available across services, but tracing one request is difficult. What would you implement?
+13. Traffic suddenly increases 10x. What would you check before simply adding more servers?
+14. Application works perfectly in staging but fails in production. What differences would you compare?
+15. A service crashes only under heavy load. How would you identify the actual root cause?
+16Your application is getting OutOfMemoryError. How would you investigate it?
+17CPU usage suddenly reaches 100%. How would you identify the problematic thread/code?
+
+Design Pattern 
+===========
+1)Builder design pattern 
+2)Singleton design pattern 
+3)Factory design pattern 
+4)Abstract factory design pattern 
+
+AWS
+====
+#How do you store user details and passwords in AWS? 
+
+Concept Implemented 
+#AOP
+#Rate limiting 
+#Idempotency
+#Async 
+Cache 
+#Batches
+Redis
+#Encryption and decryption 
+Create own custom sb starter
+# Design singleton class
+Refresh token
+
+Linkdin Que
+------------
+What is jstat and jmap, patching
+How do you troubleshoot an OutOfMemoryError?
+Heap Dump vs Thread Dump — what is the difference?
+How do you troubleshoot and resolve production issues?
+Explain the database patching process.
+What is Root Cause Analysis (RCA)?
+How would you troubleshoot a MySQL application issue after database patching?
+How would you identify and troubleshoot a Memory Leak?
+2. Cycle Detection in Linked List.
+  How do you detect a cycle in a linked list using Floyd's Algorithm?
+
+3. Preorder Traversal in Binary Tree.
+  Can you describe the algorithm for preorder traversal of a binary tree and how to find the maximum path sum?
+
+4. Koko Eating Bananas Problem.
+  Solve the Koko Eating Bananas problem to find the minimum eating speed required.
+  How would you debug a slow Spring Boot API in production?
+   Design a fund transfer system handling millions of transactions.
+   How would you prevent duplicate transactions?
+   Why can @Transactional fail during self-invocation?
+🔹 How would you handle database connection pool exhaustion?
+🔹 How would you maintain ordering in Kafka?
+🔹 How would you process 1 lakh messages/second using Kafka?
+🔹 How would you handle cascading failures in microservices?
+ How can you override default properties in Spring Boot?
+ How do you enable logging in Spring Boot?
+ 

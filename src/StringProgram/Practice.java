@@ -37,7 +37,7 @@ import java.util.Set;
 
 public class Practice {
 	public static void main(String[] args) {
-		String s1 = "riya";
+		String s1 = "Mahesh";
 		//String s2 = "yairm";
 		char ch [] = s1.toCharArray();
 		

@@ -1,0 +1,44 @@
+https://www.naukri.com/java-developer-jobs-in-mumbai?k=java+developer&l=mumbai%2C+pune%2C+hyderabad%2C+bangalore%2C+nagpur&nignbevent_src=jobsearchDeskGNB&experience=4&jobAge=1
+https://www.naukri.com/java-developer-jobs-in-mumbai?k=java%20developer&l=mumbai&nignbevent_src=jobsearchDeskGNB&experience=4&jobAge=1
+https://www.naukri.com/java-developer-jobs-in-pune?k=java%20developer&l=pune&nignbevent_src=jobsearchDeskGNB&experience=4&jobAge=1
+https://www.naukri.com/java-developer-jobs-in-hyderabad-secunderabad?k=java%20developer&l=hyderabad%20secunderabad&nignbevent_src=jobsearchDeskGNB&experience=4&jobAge=1
+https://www.naukri.com/java-developer-jobs-in-bengaluru?k=java%20developer&l=bengaluru&nignbevent_src=jobsearchDeskGNB&experience=4&jobAge=1
+//Prob-10 -find second highest salary from each department
+//Prob-2 find longest palindrone from input string I-babracecarad O-racecar
+//find_the_longest_repeating_sequence_in_a_string(); I - aaabbccccdde O- cccc
+//Prob 12 longest substring without duplicate //Input: s = "geeksforgeeks" //Output: 7 
+//Prob28 // 3. longest substring without repeating characters
+//Prob -13// 1446. Consecutive Characters
+//Prob-16 - //Write a method to get the latest status for all orders from this List.
+//Prob -9 //Input = [73,74,75,71,69,72,76,73] Output = [1, 1, 4, 2, 1, 1, 0, 0]
+//Prob-1 find index which left and right sum is equal Input = 2 2 5 6 -2 Output = 3
+//Prob - 11 //Input [1, 2, 3, 4, 5, 6, 7] Output [2, 1, 4, 3, 6, 5, 7]
+//Prob - 15 Group anagram together Input ["act", "god", "cat", "dog", "tac"]
+//Output [["act", "cat", "tac"], ["god", "dog"]]
+//Prob-3 find target sum from array found return true //Input: arr[] = [0, -1, 2, -3, 1], target = -2 Output: true 
+//Prob-5 //Input: arr[] = [10, 3, 5, 6, 2] //Output: [180, 600, 360, 300, 900]
+//Prob-6 findmax profit //Input: prices[] = [7, 10, 1, 3, 6, 9, 2] //Output: 8
+//Prob-4 find max sum from continuos array [7, -1, 2, 3] has the largest sum 11
+//Input: arr[] = [2, 3, -8, 7, -1, 2, 3]  //Output: 11
+//Prob -7 //Big integer
+//Prob - 8 //find maximum area //Input: arr[] = [1, 5, 4, 3] //Output: 6 //11. Container With Most Water
+//Prob - 17 //Remove element
+//Prob-18 //remove-duplicates-from-sorted-array
+//Prob - 19 // remove-duplicates-from-sorted-array-ii
+//Prob 14 //76. Minimum Window Substring
+//Prob 20 //169. Majority Element
+//Prob 21 //189. Rotate Array
+//Prob 22 // 122. Best Time to Buy and Sell Stock II
+//Prob 23 //55. Jump Game
+//Prob 24 //45. Jump Game II
+//Prob 25 //274. H-Index
+//Prob 26 //3550 Smallest index with digit sum equal to index
+//Prob27 //1 .Two Sum
+//Prob28 // 3. longest substring without repeating characters
+//Prob29 // 983 Minimum Cost for Tickets
+//Prob30 //14. Longest Common Prefix
+
+
+---------------------
+ - DSA, 40 min: three travel passes, 1 day, 7 day, 30 day, each with its own cost. Given an array of travel days, find the minimum spend that covers every day.
+ Given a JSON string, count the nested objects. {{}{}} returns 2.

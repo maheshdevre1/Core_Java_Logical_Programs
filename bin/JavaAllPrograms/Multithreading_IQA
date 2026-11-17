@@ -1,0 +1,156 @@
+#What is Java Memory Model?
+-------------------------------
+The Java Memory Model defines the rules for how threads interact with shared memory in Java. It specifies visibility, ordering, and synchronization guarantees between threads. Mechanisms such as volatile, synchronized, locks, and atomic classes establish happens-before relationships, ensuring that changes made by one thread can be reliably observed by another and controlling how operations are ordered.
+Suppose an online store has 1 item in stock, and two customers click Buy at the same time.
+Both threads may read stock = 1 and try to decrease it simultaneously.
+Because stock-- is not atomic, both customers could potentially purchase the same item.
+Using synchronized ensures only one thread modifies the stock at a time.
+This is how the Java Memory Model helps manage atomicity, visibility, and ordering in multithreaded applications.
+
+#What problems can ThreadLocal cause in a thread pool?
+------------------------------------------------------
+Main problems
+Stale data – old request data can leak into a new request.
+Memory leaks – values can remain attached to pooled threads for a long time.
+Incorrect behavior – one user's/request's context may accidentally be used by another request.
+Best practice: always clean up in finally.
+ThreadLocal can cause stale data and memory leaks in thread pools because pooled threads are reused. Always call ThreadLocal.remove() after the task completes, preferably in a finally block.
+Real-Time Example: Spring Boot User Request
+
+Imagine a Spring Boot application stores the logged-in username in ThreadLocal.
+
+ThreadLocal<String> user = new ThreadLocal<>();
+Request A runs on Thread-1 and sets user = "Mahesh".
+Request A finishes, but forgets to call user.remove().
+The thread pool reuses Thread-1 for Request B.
+Request B may still see "Mahesh" instead of its actual user.
+Therefore, always use user.remove() in a finally block.
+
+#How does CompletableFuture work internally?
+--------------------------------------------
+CompletableFuture is Java's way of handling asynchronous tasks and combining their results without blocking the main thread.
+Real-time example: Order processing
+Suppose an e-commerce application needs to:
+Get customer details
+Check inventory
+Process payment
+Create the order
+Instead of doing everything sequentially:
+Customer → Inventory → Payment → Order
+you can run independent tasks asynchronously.
+CompletableFuture represents the eventual completion or failure of an asynchronous computation. Internally, it maintains completion state and dependent stages, while an Executor such as the common ForkJoinPool executes asynchronous tasks. When a task completes, dependent stages are triggered, allowing us to build asynchronous pipelines without manually managing threads.
+One important distinction: CompletableFuture itself doesn't create a new thread for every operation; execution depends on whether you use async methods and which executor you provide
+
+#What is ForkJoinPool and how does work-stealing work? 
+--------------------------------------------------------
+ForkJoinPool is a Java thread pool designed for parallel and recursive tasks. It is commonly used by CompletableFuture when you don't provide your own executor.
+Real-time example
+Imagine an e-commerce application processing 1,000 orders.
+Instead of one thread processing all orders:
+Thread 1 → 1000 orders
+ForkJoinPool distributes the work:
+ ForkJoinPool
+                  |
+       ┌──────────┼──────────┐
+       ↓          ↓          ↓
+    Thread 1   Thread 2   Thread 3
+    300 orders 400 orders 300 orders
+	How does Work-Stealing work?
+Each worker thread has its own task queue.
+Thread 1 Queue          Thread 2 Queue
+┌─────────────┐         ┌─────────────┐
+│ Task A      │         │ Task D      │
+│ Task B      │         │ Task E      │
+│ Task C      │         │ Task F      │
+└─────────────┘         └─────────────┘
+Suppose Thread 1 finishes all its tasks:
+Thread 1 → No tasks ❌
+Thread 2 → Tasks remaining ✅
+Instead of sitting idle, Thread 1 steals a task from Thread 2's queue:
+Thread 1
+   ↓
+"Give me some work!"
+   ↓
+steals Task F
+   ↓
+processes Task F
+
+#How would you detect and troubleshoot a deadlock?
+---------------------------------------------------
+A deadlock occurs when two or more threads are waiting for locks held by each other, so none of them can continue.
+How to detect it?
+In a running Java application, take a thread dump:
+jstack <PID>
+or use tools such as JConsole, VisualVM, or Java Flight Recorder.
+A thread dump will typically report something like:
+Found one Java-level deadlock:
+Thread-1 waiting for lock held by Thread-2
+Thread-2 waiting for lock held by Thread-1
+How to troubleshoot?
+Identify the threads involved.
+Identify which locks each thread holds and is waiting for.
+Check the code for inconsistent lock ordering.
+Fix the locking strategy—for example, always acquire lock1 before lock2.
+Prefer Lock.tryLock() with a timeout where appropriate to avoid waiting forever.
+How to avoid deadlock
+1. Always acquire locks in the same order
+2. Avoid unnecessary nested locks
+3. Use tryLock() with a timeout
+4. Keep synchronized sections small
+Imagine a banking application transferring money between Account A and Account B.
+Two threads process transfers at the same time:
+Thread 1: A → B
+Thread 2: B → A
+Thread 1 locks Account A and waits for Account B, while Thread 2 locks Account B and waits for Account A.
+Thread 1                 Thread 2
+   ↓                        ↓
+Lock Account A          Lock Account B
+   ↓                        ↓
+Wait for B              Wait for A
+   ↓                        ↓
+   └────── DEADLOCK ────────┘
+Neither transaction can continue, so the application can get stuck.
+How to avoid it?
+Always acquire locks in the same order:
+Thread 1: Lock A → Lock B
+Thread 2: Lock A → Lock B
+Then Thread 2 waits for A to be released instead of creating a circular dependency.\
+
+#What happens when you create too many threads in a Java application?
+---------------------------------------------------------------------
+Suppose a Spring Boot application creates 10,000 threads to handle requests.
+Each thread requires memory for its stack, and the OS/JVM must schedule and manage those threads.
+As the number of threads increases:
+Memory usage increases → each thread consumes stack memory.
+CPU overhead increases → CPU spends more time switching between threads.
+Performance decreases → too many threads compete for CPU and resources.
+Application may become unstable → you can eventually get OutOfMemoryError: unable to create native thread.
+Solution: use a bounded thread pool such as ExecutorService or ThreadPoolExecutor.
+
+#What is false sharing and how can it affect performance?
+----------------------------------------------------------
+False sharing is a performance problem that happens when multiple CPU cores modify different variables that happen to be on the same CPU cache line.
+Real-time example
+Imagine two threads updating different counters:
+class Counter {
+    long counter1;
+    long counter2;
+}
+CPU Core 1                    CPU Core 2
+   ↓                             ↓
+updates counter1             updates counter2
+   ↓                             ↓
+        Same CPU Cache Line
+              ↓
+       Cache invalidations
+              ↓
+        Performance ↓
+Even though the threads are modifying different variables, the CPU cache works with cache lines (commonly 64 bytes). When one core modifies its variable, the cache line may need to be invalidated/updated for the other core.
+This causes cache-coherence traffic and slowdowns.
+How to avoid it?
+Separate frequently modified variables so they don't share a cache line. In Java, techniques include padding or @Contended (with the appropriate JVM options).
+
+#What happens internally when a Java thread calls `wait()`? 
+-----------------------------------------------------------
+When a thread calls wait(), it must own the object's monitor. The JVM releases that monitor and places the thread into the object's wait set, putting the thread into the WAITING state. Another thread can call notify() or notifyAll() on the same object. The waiting thread then becomes eligible to run, but it must reacquire the object's monitor before wait() returns and execution continues.
+

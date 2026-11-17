@@ -1,0 +1,4 @@
+#What is dynamic binding / static binding or early binding/Method hiding 
+-------------------------------------
+Method hiding occurs when a subclass defines a static method with the same signature as a static method in its parent class. Static methods cannot be overridden; they are hidden. We implement method hiding by declaring the same static method in the child class. The method that gets called depends on the reference type, not the actual object type. For example, if Parent p = new Child(); and both classes have a static show() method, p.show() calls Parent.show(). Unlike method overriding, method hiding is resolved at compile time.
+

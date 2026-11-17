@@ -1,0 +1,35 @@
+-- Rank employees based on experience.
+-- Delete duplicate record and keep one based on mail
+-- Delete all duplicate record
+-- To retrieve employees whose salary is greater than the average salary of their own department
+-- Employees with Highest Salary in Each Department
+-- Find Employees with Same Salary
+-- find all the manager email id
+-- There are two tables: Employee and Shift. The Employee table has id and name, and the Shift table has employeeId and shift. 
+-- I want to find employees who have a morning shift using an SQL query.
+-- Write an SQL query to get the latest record per group.
+-- Find second highest salary
+-- Find duplicate records
+-- Write an SQL query to find the names of authors who have written more than 10 books.
+
+========================//=======================
+-- Get all employees and their department names. //two table
+-- Get all employees, including those who are not assigned to any department. //two table
+-- Get all departments and the employees assigned to them. //two table
+-- Get all employees and all departments, even if they don’t match. //two table
+-- Find managers and their subordinates from an employee table. // one table
+-- Get departments and count of employees in each. //two table
+-- Get employee names, their department, and the project they are working on. //three table
+-- Get employees who are not assigned to any department. // two table
+-- Find departments that have more than 1 employee. // two table 
+-- List all departments with the number of employees, sorted by highest number of employees. // two table
+====================//====================================
+-- find the employee whose salary is greater than or equal to manager salary
+-- Find Employees Who Joined in Last 30 Days
+-- Find Employees Without Department
+-- Find Manager Name for Each Employee
+-- Find Employees Earning More Than Manager
+-- Count Employees Department-wise
+-- Find Last 3 Records
+-- Find Employees Who Have Same Name & Different IDs
+-- create table and insert data in table write sql query

@@ -1,0 +1,407 @@
+//Rank employees based on experience.
+SELECT emp_id,
+       emp_name,
+       joining_date,
+       RANK() OVER (ORDER BY joining_date ASC) AS experience_rank
+FROM employee;
+
+
+//Delete duplicate record and keep one
+DELETE e1 from employee e1 JOIN employee e2 ON e1.email = e2.email where e1.emp_id>e2.emp_id;
+
+//Delete all duplicate record
+DELETE FROM employee
+WHERE email IN (
+    SELECT email
+    FROM (
+        SELECT email
+        FROM employee
+        GROUP BY email
+        HAVING COUNT(*) > 1
+    ) t
+);
+
+
+//To retrieve employees whose salary is greater than the average salary of their own department
+SELECT emp_id,
+       emp_name,
+       dept_id,
+       salary
+FROM employee e
+WHERE salary > (
+    SELECT AVG(salary)
+    FROM employee
+    WHERE dept_id = e.dept_id
+);
+
+emp_id	emp_name	dept_id	salary
+101	John	10	5000
+102	Alice	10	7000
+103	Bob	10	6000
+104	David	20	8000
+105	Eva	20	9000
+106	Tom	20	7000
+
+
+
+emp_id	employee_name	dept_id	salary
+1	Alice	101	50000
+2	Bob	101	70000
+3	Charlie	102	60000
+4	David	102	80000
+5	Emma	103	45000
+6	Frank	103	45000
+
+//Employees with Highest Salary in Each Department
+---------------------------------------------------
+SELECT *
+FROM employee e
+WHERE salary = (
+    SELECT MAX(salary) 
+    FROM employee 
+    WHERE dept_id = e.dept_id
+);
+
+// Find Employees with Same Salary
+--------------------------------
+SELECT *
+FROM employee
+WHERE salary IN (
+    SELECT salary 
+    FROM employee 
+    GROUP BY salary 
+    HAVING COUNT(*) > 1
+);
+
+------------------------------------------
+
+/*
+--Employee-- 
+id, name, email, phone, mgr_id references Employee.id
+Find emails of all managers
+id    name    mgr_id
+*/
+find all the manager email id
+
+SELECT DISTINCT m.email
+FROM Employee e
+INNER JOIN Employee m
+ON e.mgr_id = m.id;
+
+//There are two tables: Employee and Shift. The Employee table has id and name,
+and the Shift table has employeeId and shift. 
+//I want to find employees who have a morning shift using an SQL query.
+SELECT DISTINCT e.id, e.name
+FROM employee e
+JOIN shift s ON e.id = s.employeeid
+WHERE s.shift = 'morning';
+
+
+//Write an SQL query to get the latest record per group.
+---------------------------------------------------------
+
+emp_id	emp_name	department	joining_date
+1	Rahul	IT	2024-01-10
+2	Amit	IT	2024-05-15
+3	Priya	HR	2024-02-20
+4	Neha	HR	2024-08-01
+
+SELECT department, MAX(joining_date) AS latest_date
+FROM employee
+GROUP BY department;
+
+-----------------------------------------------
+employees
+employee_id	employee_name	department_id
+1	Alice	101
+2	Bob	102
+3	Charlie	NULL
+4	David	101
+5	Emma	105
+departments
+id	department_name
+101	HR
+102	IT
+103	Finance
+104	Sales
+
+1. Second Highest Salary
+-------------------------   
+SELECT MAX(salary) 
+FROM employee 
+WHERE salary < (SELECT MAX(salary) FROM employee);
+
+SELECT salary
+FROM employee
+ORDER BY salary DESC
+LIMIT 1 OFFSET 1;
+
+2. Nth Highest Salary (Generic)
+---------------------------------
+SELECT salary 
+FROM employee e1
+WHERE N-1 = (
+    SELECT COUNT(DISTINCT salary) 
+    FROM employee e2 
+    WHERE e2.salary > e1.salary
+);
+
+SELECT salary
+FROM employee
+ORDER BY salary DESC
+LIMIT 1 OFFSET N-1;
+
+Write an SQL query to find the names of authors who have written more than 10 books.
+-------------------------------------------------------------
+SELECT Author
+FROM BookAuthor
+GROUP BY Author
+HAVING COUNT(Book) > 10;
+
+3. Find Duplicate Records
+------------------------
+SELECT name, COUNT(*) 
+FROM employee 
+GROUP BY name 
+HAVING COUNT(*) > 1;
+
+
+
+
+// Get all employees and their department names.
+-----------------------------------------------
+SELECT e.employee_name, d.department_name
+FROM employees e
+INNER JOIN departments d ON e.department_id = d.id;
+
+// Get all employees, including those who are not assigned to any department.
+-----------------------------------------------------------------------------
+SELECT e.employee_name, d.department_name
+FROM employees e
+LEFT JOIN departments d ON e.department_id = d.id;
+
+// Get all departments and the employees assigned to them.
+---------------------------------------------------------
+SELECT e.employee_name, d.department_name
+FROM employees e
+RIGHT JOIN departments d ON e.department_id = d.id;
+
+// Get all employees and all departments, even if they don’t match.
+-------------------------------------------------------------------
+-- For databases that support FULL OUTER JOIN:
+SELECT e.employee_name, d.department_name
+FROM employees e
+FULL OUTER JOIN departments d ON e.department_id = d.id;
+
+-- MySQL alternative using UNION:
+-----------------------------------
+SELECT e.employee_name, d.department_name
+FROM employees e
+LEFT JOIN departments d ON e.department_id = d.id
+
+UNION
+
+SELECT e.employee_name, d.department_name
+FROM employees e
+RIGHT JOIN departments d ON e.department_id = d.id;
+
+//Find managers and their subordinates from an employee table.
+--------------------------------------------------------------
+SELECT e.employee_name AS employee, m.employee_name AS manager
+FROM employees e
+JOIN employees m ON e.manager_id = m.id;
+
+// Get departments and count of employees in each.
+-------------------------------------------------------
+SELECT d.department_name, COUNT(e.id) AS employee_count
+FROM departments d
+LEFT JOIN employees e ON e.department_id = d.id
+GROUP BY d.department_name;
+
+// Get employee names, their department, and the project they are working on.
+SELECT e.employee_name, d.department_name, p.project_name
+FROM employees e
+JOIN departments d ON e.department_id = d.id
+JOIN projects p ON e.project_id = p.id;
+
+// Get employees who are not assigned to any department.
+--------------------------------------------------------
+SELECT e.employee_name
+FROM employees e
+LEFT JOIN departments d ON e.department_id = d.id
+WHERE d.id IS NULL;
+
+// Find departments that have more than 1 employee.
+-------------------------------------------------------
+SELECT d.department_name, count(e.id)
+FROM employees e
+JOIN departments d ON e.department_id = d.id  group by d.department_name having count(e.id) > 1;
+
+// List employee names along with their manager names.
+--------------------------------------------------------
+SELECT e.employee_name, m.employee_name
+FROM employees e
+JOIN employees m ON e.id = m.manager_id;
+
+// List all departments with the number of employees, sorted by highest number of employees.
+----------------------------------------------------------------------------------------------
+select d.department_name, count(e.employee_name) FROM employees e
+JOIN departments d ON e.department_id = d.id  group by d.department_name  order by count(e.employee_name) desc;
+
+//find the employee whose salary is greater than or equal to manager salary
+----------------------------------------------------------------------------
+Select e.* from Employee e JOIN Employee m ON e.manager_id = m.emp_id
+WHERE e.salary >= m.salary
+=================================================================
+
+
+
+
+
+
+6. Find Employees Who Joined in Last 30 Days
+---------------------------------------------
+SELECT *
+FROM employee
+WHERE joining_date >= SYSDATE - 30;
+
+Find Employees Without Department
+----------------------------------
+SELECT e.*
+FROM employee e
+LEFT JOIN department d 
+ON e.dept_id = d.id
+WHERE d.id IS NULL;
+
+
+
+Find Manager Name for Each Employee
+-----------------------------------
+SELECT e.name AS employee, m.name AS manager
+FROM employee e
+LEFT JOIN employee m 
+ON e.manager_id = m.id;
+
+Find Employees Earning More Than Manager
+------------------------------------------
+SELECT e.name
+FROM employee e
+JOIN employee m 
+ON e.manager_id = m.id
+WHERE e.salary > m.salary;
+
+Count Employees Department-wise
+-----------------------------------
+SELECT dept_id, COUNT(*) 
+FROM employee
+GROUP BY dept_id;
+
+Find Last 3 Records
+--------------------
+SELECT *
+FROM employee
+ORDER BY id DESC
+FETCH FIRST 3 ROWS ONLY;
+
+Find Employees Who Have Same Name & Different IDs
+-------------------------------------------------
+SELECT name
+FROM employee
+GROUP BY name
+HAVING COUNT(DISTINCT id) > 1;
+
+Find total salary department-wise:
+----------------------------------
+SELECT department, SUM(salary) AS total_salary
+FROM employee
+GROUP BY department;
+
+
+
+
+-----------------------------------------------------------------------------------
+Tables - 
+CREATE TABLE department (
+    id INT PRIMARY KEY,
+    dept_name VARCHAR(50)
+);
+INSERT INTO department (id, dept_name) VALUES
+(1, 'HR'),
+(2, 'IT'),
+(3, 'Finance'),
+(4, 'Sales');
+
+
+CREATE TABLE employee (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    salary INT,
+    dept_id INT,
+    manager_id INT,
+    joining_date DATE
+);
+INSERT INTO employee (id, name, salary, dept_id, manager_id, joining_date) VALUES
+(1, 'Amit', 50000, 1, NULL, '2023-01-10'),
+(2, 'Neha', 60000, 2, 1, '2023-02-15'),
+(3, 'Raj', 70000, 2, 1, '2023-03-20'),
+(4, 'Priya', 60000, 3, 2, '2023-04-25'),
+(5, 'Vikas', 80000, 3, 2, '2023-05-30'),
+(6, 'Ankit', 90000, 4, 3, '2023-06-10'),
+(7, 'Sneha', 90000, 4, 3, '2023-07-12'),
+(8, 'Rahul', 40000, NULL, 1, '2023-08-01'),   -- No department
+(9, 'Amit', 50000, 1, NULL, '2023-09-05'),    -- Duplicate name + salary
+(10, 'Karan', 30000, 2, 2, '2023-10-10'),
+(11, 'Pooja', 70000, 3, 5, '2023-11-11'),
+(12, 'Meena', 85000, 4, 6, '2023-12-01');
+
+
+
+
+
+
+
+
+
+
+
+
+List<Integer> list = Arrays.asList(1,2,3);
+
+
+list.stream().flatMap().forEach(System.out::println);
+                    
+                    
+                    
+                    
+  List<String> list1 = List.of("Apple", "Banana");         
+  List<String> list2 = List.of("Cherry", "Date");
+  
+  list1.stream().flatMap(list2).forEach(System.out::println);
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

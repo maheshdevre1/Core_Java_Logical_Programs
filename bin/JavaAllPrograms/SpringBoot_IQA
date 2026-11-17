@@ -1,0 +1,19 @@
+#What is batch processing and how have you implemented it using Spring Batch?
+--------------------------------------------------------------------------------
+Batch processing is a technique where we process a large amount of data in groups or chunks instead of processing each record individually in real time.
+In my Spring Boot application, I used Spring Batch to process employee data from a CSV file and store it in MySQL.
+The CSV contains around 100 employee records. I configured the batch with a chunk size of 10, so Spring Batch reads 10 records, processes them, and writes those 10 records to the database in a transaction. Then it continues with the next 10 records.
+I used the ItemReader → ItemProcessor → ItemWriter architecture.
+ItemReader reads employee records from the CSV using FlatFileItemReader.
+ItemProcessor performs business logic, such as validation or transformation.
+ItemWriter uses JdbcBatchItemWriter to insert the processed records into MySQL.
+A Job contains the batch execution, and a Step defines the actual processing.
+Processing everything at once can consume more memory and makes transaction management difficult for large datasets. With chunk processing, I can control memory usage and transaction boundaries. For example, with a chunk size of 10, each group of 10 records is processed and committed independently.
+
+#How to create Singleton Class ?
+--------------------------------
+A Singleton class is a class for which only one object can be created throughout the application.
+Instead of allowing every class to create its own object, we want one shared instance.
+① Make the constructor private ==> This prevents other classes from doing:
+② Create one instance inside the class
+③ Provide a public method to access that instance

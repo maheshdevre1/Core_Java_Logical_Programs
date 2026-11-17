@@ -1,0 +1,85 @@
+#What is Docker, Why we use docker and how to implement it?
+-----------------------------------------------------------
+Docker is a containerization platform that allows us to package an application along with its runtime environment, dependencies, and configuration into a Docker image. That image can then be run as a container on different environments consistently.
+In a Spring Boot application, normally we build the application as a JAR and need Java and other dependencies configured on the server. With Docker, we package the Spring Boot JAR along with the required Java runtime into a Docker image.
+We then run that image as a container. This helps us avoid the "it works on my machine" problem because the same containerized application can run consistently across development, testing, and production environments.
+Docker is also useful for deployment, isolation, scalability, and CI/CD pipelines.
+How do you implement Docker in Spring Boot?
+First, I build my Spring Boot application using Maven or Gradle, which generates a JAR file. Then I create a Dockerfile containing the Java runtime image, copy the JAR into the image, expose the application port, and specify the command to start the application.
+FROM eclipse-temurin:21-jre
+WORKDIR /app
+COPY target/myapp.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "app.jar"]
+Then I build the Docker image:
+docker build -t my-spring-app:1.0 .
+And run it using:
+docker run -p 8080:8080 my-spring-app:1.0
+Now the Spring Boot application is running inside a Docker container and can be accessed through port 8080.
+What is Docker Compose
+Docker Compose is used when our application requires multiple containers, such as Spring Boot, MySQL, Redis, or Kafka. Instead of starting each container manually, we define them in a docker-compose.yml file and start them together using docker compose up.
+Spring Boot
+    ↓
+   JAR
+    ↓
+Dockerfile
+    ↓
+Docker Image
+    ↓
+Docker Container
+    ↓
+Running Application
+
+Dockerfile → instructions for creating the image
+Image → blueprint/package of the application
+Container → running instance of an image
+Docker Compose → manages multiple containers
+
+#How do you deploy multiple microservices using Docker?
+-----------------------------------------------------------
+In our application, we have multiple microservices, and each microservice is built and deployed independently.
+For example, if we have User Service, Order Service, and Payment Service, each service has its own source code and produces its own JAR or WAR file.
+Once the code is pushed to Git, our CI/CD pipeline, such as Jenkins, starts automatically. Jenkins performs unit testing and builds the application using Maven, which generates the JAR/WAR.
+After the WAR is created, we use a Dockerfile to create a Docker image for that particular microservice. For a WAR-based Spring application, the Dockerfile can use a Tomcat base image and copy the WAR into Tomcat.
+FROM tomcat:10-jdk21
+COPY target/order-service.war /usr/local/tomcat/webapps/
+EXPOSE 8080
+Jenkins then builds the Docker image, tags it with a version, and pushes it to a Docker registry such as AWS ECR, Azure Container Registry, or JFrog.
+After that, Kubernetes pulls the Docker image from the registry and deploys it as a Pod. We can configure multiple replicas for high availability and scalability.
+Developer
+    ↓
+Git Push
+    ↓
+Jenkins / CI-CD
+    ↓
+Unit Tests + Maven Build
+    ↓
+JAR / WAR
+    ↓
+Docker Build
+    ↓
+Docker Image
+    ↓
+Docker Registry
+    ↓
+Kubernetes
+    ↓
+Pods
+    ↓
+Running Microservice
+
+What is a Pod
+A Pod is the smallest deployable unit in Kubernetes. It provides an execution environment for one or more containers. In a typical microservices application, we usually run one application container inside a Pod. Kubernetes manages the Pods and provides features such as scaling, self-healing, and rolling updates.
+
+#What is Jenkins
+---------------
+Jenkins is an open-source automation server used to implement CI/CD pipelines. It automatically builds, tests, and deploys applications whenever developers push code to a source-code repository such as Git.
+In a Spring Boot microservices project, Jenkins can automate the complete process from Git push → testing → Maven build → Docker image creation → Docker registry → deployment.
+For example, when a developer pushes code to Git, Jenkins gets triggered. It runs unit tests, executes mvn clean package to create the JAR/WAR, builds a Docker image, pushes that image to a Docker registry such as ECR or JFrog, and then can trigger the deployment to Kubernetes.
+
+#What is Kubernates
+Kubernetes is an open-source container orchestration platform used to deploy and manage containerized applications in production. In our microservices architecture, we build Docker images for each microservice and push them to a container registry. Kubernetes pulls those images and runs them as Pods. We use Kubernetes for automated deployment, scaling, load balancing, service discovery, self-healing, health checks, and rolling updates. It allows each microservice to be independently deployed and scaled based on traffic.
+Jenkins → automates the pipeline
+Docker → packages the application
+Registry → stores the image
+Kubernetes → runs and manages the containers in production

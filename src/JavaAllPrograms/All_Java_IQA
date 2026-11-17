@@ -1,0 +1,201 @@
+Spring/Spring Boot
+==================
+#What is Inversion of Control (IoC)?
+-------------------------------------
+Definition:
+IoC means the control of creating and managing objects is transferred from the application to the Spring Container.
+
+Without Spring, you create objects yourself.
+
+Without IoC
+class EmployeeService {
+
+    EmployeeRepository repository = new EmployeeRepository();
+
+    public void saveEmployee() {
+        repository.save();
+    }
+}
+
+Here:
+
+EmployeeService creates EmployeeRepository.
+The class is tightly coupled.
+With IoC
+@Service
+public class EmployeeService {
+
+    @Autowired
+    private EmployeeRepository repository;
+
+    public void saveEmployee() {
+        repository.save();
+    }
+}
+
+Here:
+
+Spring creates EmployeeRepository.
+Spring creates EmployeeService.
+Spring manages their lifecycle.
+
+This is Inversion of Control.
+#What is Dependency Injection (DI)?
+-------------------------------------
+
+Definition:
+Dependency Injection is the way Spring implements IoC. Instead of an object creating its dependencies, Spring injects them.
+
+In the example:
+
+@Autowired
+private EmployeeRepository repository;
+
+Spring injects the EmployeeRepository object into EmployeeService.
+
+Real-Life Analogy
+
+Imagine you buy a car.
+
+Without DI
+
+You buy the car and install the engine yourself.
+
+Car
+ |
+ ---> Creates Engine
+With DI
+
+The manufacturer provides the car with the engine already installed.
+
+Spring Container
+      |
+Creates Engine
+      |
+Injects into Car
+
+The car simply uses the engine.
+
+Types of Dependency Injection
+1. Constructor Injection (Recommended)
+@Service
+public class EmployeeService {
+
+    private final EmployeeRepository repository;
+
+    public EmployeeService(EmployeeRepository repository) {
+        this.repository = repository;
+    }
+}
+
+Advantages:
+
+Best practice
+Makes dependencies mandatory
+Easy to unit test
+Works well with immutable fields
+2. Setter Injection
+@Service
+public class EmployeeService {
+
+    private EmployeeRepository repository;
+
+    @Autowired
+    public void setRepository(EmployeeRepository repository) {
+        this.repository = repository;
+    }
+}
+
+Used when the dependency is optional or may change.
+
+3. Field Injection
+@Autowired
+private EmployeeRepository repository;
+
+Simple, but generally not recommended because it makes testing harder and hides dependencies.
+
+#What is Bean Lifecycle?
+-------------------------
+
+A Spring Bean Lifecycle is the sequence of steps a bean goes through from creation to destruction inside the Spring IoC Container.
+
+Bean Lifecycle Steps
+1. Bean Instantiation
+
+Spring creates the bean.
+
+@Component
+public class EmployeeService {
+
+    public EmployeeService() {
+        System.out.println("Bean Created");
+    }
+}
+2. Dependency Injection
+
+Spring injects required dependencies.
+
+@Autowired
+private EmployeeRepository repository;
+3. Initialization
+
+Spring calls initialization methods after all dependencies are injected.
+
+Using @PostConstruct
+import jakarta.annotation.PostConstruct;
+
+@Component
+public class EmployeeService {
+
+    @PostConstruct
+    public void init() {
+        System.out.println("Initialization");
+    }
+}
+
+This method is called once, after dependency injection.
+
+4. Bean Ready
+
+Now the bean is available for use.
+
+employeeService.saveEmployee();
+5. Destruction
+
+When the application shuts down, Spring calls cleanup methods.
+
+Using @PreDestroy
+import jakarta.annotation.PreDestroy;
+
+@Component
+public class EmployeeService {
+
+    @PreDestroy
+    public void destroy() {
+        System.out.println("Bean Destroyed");
+    }
+}
+
+This is typically used to:
+
+Close database connections
+Close files
+Release resources
+Stop background threads
+
+#Error Code in Java
+Code	Meaning
+200	OK (Success)
+201	Created (Resource created successfully)
+202	Accepted (Request accepted for asynchronous processing)
+203	Non-Authoritative Information
+204	No Content (Success, but no response body)
+400	Bad Request
+401	Unauthorized
+403	Forbidden
+404	Not Found
+409	Conflict
+500	Internal Server Error
+502	Bad Gateway
+503	Service Unavailable
+504	Gateway Timeout

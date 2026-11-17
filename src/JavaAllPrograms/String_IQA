@@ -1,0 +1,3 @@
+#What are Weak, Soft, and Phantom References?
+---------------------------------------------
+Strong references keep objects alive. Soft references are typically cleared when the JVM needs memory. Weak references can be cleared once the object is no longer strongly reachable. Phantom references are used with a ReferenceQueue to perform cleanup after the object becomes phantom reachable.

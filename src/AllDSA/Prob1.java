@@ -1,3 +1,4 @@
+
 package AllDSA;
 //Delivery Route Optimization
 //You are a manager at a logistics company, and you are responsible for optimising the delivery routes for your drivers. Each driver is assigned a //specific route represented by positive or negative numbers, which indicates the distance they need to travel to reach each delivery location.
@@ -17,59 +18,35 @@ package AllDSA;
 //Since both sums are equal, the answer is:
 //3
 
-import java.util.Scanner;
+import java.util.Scanner;	
 
 public class Prob1 {
-	 // Method to find the equilibrium index (1-based)
-    public static int optimizedRoute(long[] arr, int n) {
+	public static void main(String[] args) {
+	        long[] arr = {2, 2, 5, 6, -2};
 
-        // Calculate total sum of the array
-        long totalSum = 0;
-        for (long num : arr) {
-            totalSum += num;
-        }
+	        // Step 1: Calculate total sum
+	        long totalSum = 0;
 
-        // Initialize left sum
-        long leftSum = 0;
+	        for (int i = 0; i < arr.length; i++) {
+	            totalSum = totalSum + arr[i];
+	        }
 
-        // Traverse the array
-        for (int i = 0; i < n; i++) {
+	        // Step 2: Initialize left sum
+	        long leftSum = 0;
 
-            // Calculate right sum
-            long rightSum = totalSum - leftSum - arr[i];
+	        // Step 3: Check each position
+	        for (int i = 0; i < arr.length; i++) {
 
-            // Check if left sum equals right sum
-            if (leftSum == rightSum) {
-                return i + 1; // Return 1-based index
-            }
+	            long rightSum = totalSum - leftSum - arr[i];
 
-            // Update left sum
-            leftSum += arr[i];
-        }
+	            if (leftSum == rightSum) {
+	                System.out.println(i + 1);
+	                break;
+	            }
 
-        // No equilibrium index found
-        return -1;
-    }
-
-    public static void main(String[] args) {
-
-        Scanner sc = new Scanner(System.in);
-
-        // Read array size
-        int n = sc.nextInt();
-
-        // Create array
-        long[] arr = new long[n];
-
-        // Read array elements
-        for (int i = 0; i < n; i++) {
-            arr[i] = sc.nextLong();
-        }
-
-        // Print result
-        System.out.println(optimizedRoute(arr, n));
-
-        sc.close();
-    }
-
+	            leftSum = leftSum + arr[i];
+	        }
+	    }
+	
+     
 }

@@ -17,6 +17,8 @@ public class ContainerWater {
 				  int height = Math.min(arr[i],arr[j]);
 				  int width = j-i;
 				  int area = height*width;
+				  
+				  System.out.println("height ==> "+height+" width ==> "+width+" area ==> "+area);
 				  if(area>maxArea) {
 					  maxArea=area;
 				  }

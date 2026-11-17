@@ -1,0 +1,88 @@
+class Parent {
+    private Object process(String o) {
+        System.out.println("Parent");
+    }
+}
+class Child extends Parent {
+    private String process(String s) {
+        System.out.println("Child");
+    }
+}
+Parent p = new Child();
+p.process("test")
+
+Output = Compile time error 
+Missing return type
+we can not override private method
+------------------------------------------------------------
+class Parent {
+    Object process(String o) {
+        System.out.println("Parent");
+    }
+}
+class Child extends Parent {
+    String process(String s) {
+        System.out.println("Child");
+    }
+}
+Parent p = new Child();
+p.process("test")
+
+Output : compile time error
+Missing return type
+----------------------------------------------------------------
+public class Test {
+	 public static void main(String[] args) {
+	        try {
+	            System.out.println(test());
+	        } catch (Exception e) {
+	            System.out.println("Main Catch");
+	        }
+	    }
+	    static int test() {
+	        try {
+	            System.out.println("Try");
+	            int x = 10 / 0; 
+	            return 1;
+	        } catch (ArithmeticException e) {
+	            System.out.println("Catch");
+				return 2;
+	        } finally {
+	            System.out.println("Finally");
+	            return 3;
+	        }
+	    }
+
+}
+
+Output :
+Try
+Catch
+Finally
+3
+------------------------------------------------------------------
+String s1 = "Java";
+String s2 = new String("Java");
+System.out.println(s1 == s2); //false
+System.out.println(s1.equals(s2)); //true
+--------------------------------------------------------------
+Map<String, Integer> map = new HashMap<>();
+map.put("A", 10);
+map.put("B", 20);
+map.put(new String("A"), 30);
+System.out.println(map.size()); // 2
+System.out.println(map.get("A")); // 30
+map.put("A", 40);
+System.out.println(map.size()); // 2
+System.out.println(map.get("A")); // 40
+for (Map.Entry<String, Integer> entry : map.entrySet()) {
+    System.out.println(entry.getKey() + " -> " + entry.getValue());
+}
+Output :
+2
+30
+2
+40
+A -> 40
+B -> 20
+---------------------------------------------------------
